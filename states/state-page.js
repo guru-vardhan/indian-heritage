@@ -462,7 +462,7 @@ function updateCarousel() {
   const caption = document.getElementById("carouselCaptionText");
   const counter = document.getElementById("carouselCounter");
   const dotsContainer = document.getElementById("carouselDots");
-  const thumbsContainer = document.getElementById("carouselThumbs");
+  const thumbsContainer = document.getElementById("carouselThumbnails") || document.getElementById("carouselThumbs");
 
   if (carouselImages.length === 0) return;
   const currentImg = carouselImages[carouselIndex];
@@ -487,9 +487,15 @@ function updateCarousel() {
   }
 
   if (thumbsContainer) {
-    thumbsContainer.innerHTML = carouselImages.map((img, idx) => `
-      <img src="${img.url}" alt="${img.caption || ''}" class="carousel-thumb ${idx === carouselIndex ? 'active' : ''}" onclick="goToSlide(${idx})" onerror="handleImageError(this)">
-    `).join("");
+    if (carouselImages.length > 1) {
+      thumbsContainer.style.display = "flex";
+      thumbsContainer.innerHTML = carouselImages.map((img, idx) => `
+        <img src="${img.url}" alt="${img.caption || ''}" class="carousel-thumb ${idx === carouselIndex ? 'active' : ''}" onclick="goToSlide(${idx})" onerror="handleImageError(this)">
+      `).join("");
+    } else {
+      thumbsContainer.style.display = "none";
+      thumbsContainer.innerHTML = "";
+    }
   }
 }
 
