@@ -123,9 +123,56 @@ const dom = {
 // -------------------------------------------------------------
 // Core Data Helpers & Lookup Utilities
 // -------------------------------------------------------------
+const STATE_CODE_MAP = {
+  "ap": "AndhraPradesh",
+  "ts": "Telangana",
+  "tg": "Telangana",
+  "tn": "TamilNadu",
+  "ka": "Karnataka",
+  "mh": "Maharashtra",
+  "rj": "Rajasthan",
+  "up": "UttarPradesh",
+  "mp": "MadhyaPradesh",
+  "gj": "Gujarat",
+  "od": "Odisha",
+  "or": "Odisha",
+  "kl": "Kerala",
+  "wb": "WestBengal",
+  "br": "Bihar",
+  "pb": "Punjab",
+  "dl": "Delhi",
+  "ga": "Goa",
+  "as": "Assam",
+  "jk": "JammuAndKashmir",
+  "la": "Ladakh",
+  "hp": "HimachalPradesh",
+  "uk": "Uttarakhand",
+  "ut": "Uttarakhand",
+  "cg": "Chhattisgarh",
+  "ct": "Chhattisgarh",
+  "jh": "Jharkhand",
+  "hr": "Haryana",
+  "sk": "Sikkim",
+  "ar": "ArunachalPradesh",
+  "ml": "Meghalaya",
+  "nl": "Nagaland",
+  "mn": "Manipur",
+  "mz": "Mizoram",
+  "tr": "Tripura",
+  "py": "Puducherry",
+  "ch": "Chandigarh",
+  "an": "AndamanAndNicobar",
+  "dn": "DadraAndNagarHaveli",
+  "dd": "DadraAndNagarHaveli",
+  "ld": "Lakshadweep"
+};
+
 function getStateById(stateId) {
   if (!stateId || typeof STATES_DATA === "undefined") return null;
-  const clean = stateId.toString().replace(/[\s\-_]/g, "").toLowerCase();
+  let clean = stateId.toString().replace(/[\s\-_]/g, "").toLowerCase();
+  if (STATE_CODE_MAP[clean]) {
+    clean = STATE_CODE_MAP[clean].toLowerCase();
+  }
   return STATES_DATA.find(s => 
     s.id.toLowerCase() === clean || 
     s.id.replace(/[\s\-_]/g, "").toLowerCase() === clean || 
@@ -1479,9 +1526,7 @@ function renderSearchResults(matchedStates, matchedSites, query) {
 // -------------------------------------------------------------
 function getStatePageUrl(stateId) {
   if (!stateId) return "states/andhra-pradesh.html";
-  const matched = (typeof STATES_DATA !== "undefined")
-    ? STATES_DATA.find(s => s.id.toLowerCase() === stateId.toLowerCase() || s.name.toLowerCase() === stateId.toLowerCase())
-    : null;
+  const matched = getStateById(stateId);
   const name = matched ? matched.name : stateId;
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   return `states/${slug}.html`;
