@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sikkim Cultural Heritage & Monuments | Indian Heritage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* Centered Container & Responsive Grid */
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 20px 20px 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.42fr) minmax(0, 0.58fr);
+      gap: 14px;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .content-grid,
+      .header-row {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body class="dark-theme state-portal-page">
+  <!-- Top Global Navbar -->
+  <header class="navbar" style="position: sticky; top: 0; z-index: 100; backdrop-filter: blur(14px); background: var(--bg-glass); border-bottom: 1px solid var(--border); padding: 0.5rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 0.6rem;">
+      <span style="font-size: 1.4rem;">&#127989;</span>
+      <div>
+        <a href="../index.html" style="text-decoration: none; color: inherit;">
+          <h2 style="font-family: 'Cinzel', serif; font-size: 1.05rem; color: var(--text-main); margin: 0;">INDIAN <span style="color: var(--accent-maroon);">HERITAGE</span></h2>
+        </a>
+      </div>
+    </div>
+    
+    <div style="display: flex; align-items: center; gap: 0.6rem;">
+      <a href="../index.html" class="secondary-btn" style="text-decoration: none; padding: 0.35rem 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 5px;">&#128506;&#65039; Interactive Map</a>
+      <a href="../index.html#featuredSliderSection" class="secondary-btn" style="text-decoration: none; padding: 0.35rem 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 5px;">âœ¨ Featured Sites</a>
+      <button id="theme-toggle-btn" class="icon-btn" title="Toggle Theme" style="padding: 0.35rem 0.55rem; border-radius: 6px; cursor: pointer; border: 1px solid var(--border); background: var(--bg-card); font-size: 0.82rem;">&#127763;</button>
+    </div>
+  </header>
+
+  <!-- 1. Centered Main Container -->
+  <main class="main-container">
+    
+    <!-- 2. Header Row (Breadcrumbs & State Header) -->
+    <div class="header-row">
+      <div class="header-left">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb-nav" style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; margin-bottom: 0.2rem;">
+          <a href="../index.html" style="color: var(--accent-maroon); text-decoration: none; font-weight: 600;">&#127968; Home</a>
+          <span>&gt;</span>
+          <a href="../index.html" style="color: var(--accent-maroon); text-decoration: none; font-weight: 600;">States &amp; Territories</a>
+          <span>&gt;</span>
+          <span style="color: var(--text-main); font-weight: 600;">Sikkim</span>
+        </nav>
+
+        <!-- State Title & Badges -->
+        <div class="state-title-group">
+          <h1 class="state-page-title"><span>🌸</span> Sikkim</h1>
+          <div class="state-meta-badges">
+            <span class="badge badge-info" style="background: rgba(192, 86, 33, 0.1); color: var(--accent-terracotta); border: 1px solid rgba(192, 86, 33, 0.25);">&#128205; Capital: Gangtok</span>
+            <span class="badge badge-info" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.25);">&#127759; Region: Northeast India</span>
+            <a href="https://sikkimtourism.gov.in" target="_blank" rel="noopener noreferrer" style="text-decoration: none; background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25);">
+              <span>&#127760;</span> <span>Official Tourism Portal &#8599;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="state-switcher-box" style="background: var(--bg-card); border: 1px solid var(--border); padding: 0.5rem 0.9rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <label for="state-switcher-select" style="display: block; font-size: 0.68rem; color: var(--text-muted); margin-bottom: 0.2rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Switch State / UT</label>
+          <select id="state-switcher-select" style="padding: 0.4rem 0.75rem; border-radius: 6px; background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border); font-weight: 600; font-size: 0.78rem; cursor: pointer; min-width: 170px;"></select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Big Horizontal Heritage Monuments Explorer Ribbon -->
+    <section class="horizontal-monuments-section card">
+      <div class="monuments-strip-header">
+        <div class="strip-title-area">
+          <h2 class="strip-section-title">&#127989; Heritage Monuments in Sikkim</h2>
+          <span id="state-monuments-count" class="badge-count-pill"></span>
+        </div>
+        
+        <div class="strip-controls">
+          <!-- Search Box -->
+          <div class="strip-search-box">
+            <input type="text" id="monumentSearchInput" class="monument-search-input" placeholder="Search monuments...">
+          </div>
+          <!-- Filter Pills -->
+          <div id="monumentFilterPills" class="monument-filter-pills">
+            <button class="monument-filter-pill active" data-category="all">All</button>
+            <button class="monument-filter-pill" data-category="unesco">&#127989; UNESCO</button>
+            <button class="monument-filter-pill" data-category="temple">&#129517; Temples</button>
+            <button class="monument-filter-pill" data-category="fort">&#127984; Forts</button>
+            <button class="monument-filter-pill" data-category="cave">&#128511; Caves</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal Cards Scroll Track -->
+      <div class="horizontal-scroll-wrapper">
+        <button id="stripScrollLeft" class="strip-arrow-btn prev-arrow" title="Scroll Left">&#10094;</button>
+        <div id="state-monuments-list" class="horizontal-site-cards-track">
+          <!-- Rendered dynamically by state-page.js as compact horizontal cards -->
+        </div>
+        <button id="stripScrollRight" class="strip-arrow-btn next-arrow" title="Scroll Right">&#10095;</button>
+      </div>
+    </section>
+
+    <!-- 4. Two-Column Detailed Showcase & AI Exploration Grid (Big Sections) -->
+    <div class="content-grid">
+      
+      <!-- Main Column: Active Monument Details Showcase -->
+      <div class="site-details-card card">
+        
+        <!-- Big HD Photo Carousel -->
+        <div class="carousel-container">
+          <div class="carousel-media-frame">
+            <img id="stateSiteBanner" class="site-banner-img" src="" alt="Monument View" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;" onerror="handleImageError(this)">
+            
+            <div class="carousel-top-tags">
+              <span id="site-category-tag" class="badge-tag">Sacred Temple</span>
+              <span id="site-unesco-badge" class="badge-tag badge-unesco" style="display: none;">&#127989; UNESCO</span>
+            </div>
+
+            <button id="btnTourOverlay" class="carousel-tour-badge-btn" title="Launch 360Â° Virtual Tour">&#127760; 360&deg; Tour</button>
+            <button id="btnOpenLightbox" class="carousel-lightbox-btn" title="View Fullscreen Photo">&#128269;</button>
+            <span id="carouselCounter" class="carousel-counter-badge">1 / 1</span>
+
+            <div class="carousel-caption-bar">
+              <span id="carouselCaptionText">Monument Architecture</span>
+            </div>
+
+            <button id="prevSlideBtn" class="carousel-nav-btn prev-btn">&#10094;</button>
+            <button id="nextSlideBtn" class="carousel-nav-btn next-btn">&#10095;</button>
+          </div>
+          <!-- Thumbnail Bar -->
+          <div id="carouselThumbnails" class="carousel-thumbs-row" style="display: none;"></div>
+        </div>
+
+        <!-- Monument Header Row: Title & Action Pills -->
+        <div class="monument-header-row">
+          <div>
+            <h2 id="site-name-display">Monument Name</h2>
+            <p id="fact-district-subtitle" class="fact-district-subtitle">District, Sikkim</p>
+          </div>
+
+          <!-- Action Pills -->
+          <div class="monument-action-bar">
+            <button id="btnOpenVirtualTour" class="btn-action-pill btn-action-tour" type="button">&#127760; 360&deg; Virtual Tour</button>
+            <a id="link-google-maps" href="#" target="_blank" class="btn-action-pill">&#128205; Directions</a>
+            <a id="link-wikipedia" href="#" target="_blank" class="btn-action-pill">&#128214; Wikipedia</a>
+            <button id="btnShareMonument" class="btn-action-pill" type="button">&#128228; Share</button>
+          </div>
+        </div>
+
+        <!-- Big Audio Guide Player Bar -->
+        <div class="audio-guide-player">
+          <div class="audio-player-left">
+            <button id="ttsPlayBtn" class="primary-btn" style="width: auto; padding: 0.5rem 1.1rem; font-size: 0.84rem; border-radius: 20px;">
+              <span>&#128266;</span> <span id="ttsPlayLabel">Listen Audio Guide</span>
+            </button>
+            <button id="ttsStopBtn" class="secondary-btn btn-sm" style="padding: 0.45rem 0.85rem; border-radius: 20px; font-size: 0.8rem;">&#9209;&#65039; Stop</button>
+            <button id="ttsSpeedBtn" class="audio-speed-btn" title="Playback Speed">1.0x</button>
+          </div>
+          <div id="ttsStatusText" class="tts-status-text">Ready to narrate</div>
+          <div id="ttsWaveform" class="tts-waveform-bars">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <!-- Big 4-Column Quick Facts Matrix Grid -->
+        <div class="quick-facts-grid-horizontal">
+          <div class="fact-kpi-card">
+            <div class="fact-kpi-label"><span>&#9203;</span> Historical Era</div>
+            <p id="fact-built-in" class="fact-kpi-val">Historical Era</p>
+          </div>
+          <div class="fact-kpi-card">
+            <div class="fact-kpi-label"><span>&#127989;</span> Architectural Style</div>
+            <p id="fact-arch-style" class="fact-kpi-val">Indian Architecture</p>
+          </div>
+          <div class="fact-kpi-card">
+            <div class="fact-kpi-label"><span>&#128205;</span> District &amp; Region</div>
+            <p id="fact-district" class="fact-kpi-val">District, Sikkim</p>
+          </div>
+          <div class="fact-kpi-card">
+            <div class="fact-kpi-label"><span>&#9728;&#65039;</span> Best Time to Visit</div>
+            <p id="fact-best-time" class="fact-kpi-val">October to March</p>
+          </div>
+        </div>
+
+        <!-- Interactive Content Tabs Navigation -->
+                <div class="state-tabs-nav">
+          <button class="state-tab-btn active" data-tab="overview">&#128220; Historical Overview</button>
+          <button class="state-tab-btn" data-tab="tour">&#127760; 360&deg; Virtual Tour</button>
+          <button class="state-tab-btn" data-tab="culture">&#129517; Cultural Significance</button>
+          <button class="state-tab-btn" data-tab="festivals">&#127914; Festivals &amp; Utsav</button>
+        </div>
+
+        <!-- Tab 1: Historical Overview -->
+        <div id="tab-panel-overview" class="state-tab-panel active">
+          <h3 class="section-title-accent">Historical Chronicle &amp; Origins</h3>
+          <p id="site-description-text"></p>
+        </div>
+
+        <!-- Tab 2: 360 Degree Virtual Panoramic Tour -->
+        <div id="tab-panel-tour" class="state-tab-panel">
+          <div class="tour-viewer-wrapper">
+            <div class="tour-header-meta">
+              <div class="tour-title-group">
+                <h4 id="tourSiteTitle">&#127760; 360&deg; Virtual Panoramic Tour</h4>
+                <p>Drag or swipe to look in 360&deg; &bull; Click hotspot beacons for architectural insights</p>
+              </div>
+              <div class="tour-scenes-bar" id="tourScenesBar"></div>
+            </div>
+
+            <div class="tour-viewport-frame" id="tourViewportFrame">
+              <canvas id="tourCanvas"></canvas>
+              
+              <!-- Top Overlay (Compass & Mode) -->
+              <div class="tour-top-overlay">
+                <div class="tour-compass-badge" title="Panoramic Heading">
+                  <span class="tour-compass-needle" id="tourCompassNeedle">&#129517;</span>
+                  <span id="tourCompassText">N 000&deg;</span>
+                </div>
+                <div class="tour-mode-badge">360&deg; Panorama</div>
+              </div>
+
+              <!-- Hotspots Layer -->
+              <div class="tour-hotspots-layer" id="tourHotspotsLayer"></div>
+
+              <!-- Bottom Controls -->
+              <div class="tour-bottom-controls">
+                <div class="tour-controls-cluster">
+                  <button id="btnTourAutoRotate" class="tour-ctrl-btn active" title="Toggle Auto-Rotation (Space)">&#128260;</button>
+                  <button id="btnTourZoomIn" class="tour-ctrl-btn" title="Zoom In (+)">&#10133;</button>
+                  <button id="btnTourZoomOut" class="tour-ctrl-btn" title="Zoom Out (-)">&#10134;</button>
+                  <button id="btnTourReset" class="tour-ctrl-btn" title="Reset View">&#127919;</button>
+                </div>
+
+                <div class="tour-controls-cluster">
+                  <button id="btnTourFullscreen" class="tour-ctrl-btn" title="Enter Fullscreen 360&deg; Experience">&#9974;</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="tour-hint-footer">
+              <span>&#128161; <strong>Tip:</strong> Drag to rotate 360&deg; &bull; Scroll wheel / pinch to zoom &bull; Click pulsing numbered pins for architectural lore</span>
+              <a id="tourStreetViewLink" href="#" target="_blank" rel="noopener noreferrer" class="tour-streetview-cta">
+                <span>&#127760; Open in Google Street View 360&deg;</span> <span>&#8599;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Cultural & Spiritual Significance -->
+        <div id="tab-panel-culture" class="state-tab-panel">
+          <h3 class="section-title-accent">Cultural &amp; Spiritual Traditions</h3>
+          <p id="site-cultural-significance"></p>
+        </div>
+
+        <!-- Tab 3: Festivals & Annual Utsav -->
+        <div id="tab-panel-festivals" class="state-tab-panel">
+          <div class="festival-highlight-card">
+            <h4 id="festival-name">Annual Utsav &amp; Celebrations</h4>
+            <p id="festival-desc" style="color: var(--text-main); font-size: 0.8rem; line-height: 1.4; margin-bottom: 0;"></p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Side Column: AI Historian Intelligence & Quick Lore -->
+      <div class="showcase-sidebar-column">
+        
+        <!-- AI Assistant Banner (Dark Warm Navy Highlight Card) -->
+        <div class="highlight-card ai-assistant-banner">
+          <div class="ai-banner-badge">&#129302; Grounded AI Intelligence</div>
+          <h4>Ask AI Historian</h4>
+          <p>Explore verified historical archives, mythologies, and cultural traditions about Sikkim.</p>
+          
+          <div class="ai-prompts-row">
+            <a href="../index.html#featuredSliderSection" class="ai-prompt-chip">
+              <span>&#10024; Architecture of Sikkim monuments</span> <span>&#10132;</span>
+            </a>
+            <a href="../index.html#featuredSliderSection" class="ai-prompt-chip">
+              <span>&#10024; Cultural rituals &amp; sacred legends</span> <span>&#10132;</span>
+            </a>
+            <a href="../index.html#featuredSliderSection" class="ai-prompt-chip">
+              <span>&#10024; Dynasty timeline &amp; royal patrons</span> <span>&#10132;</span>
+            </a>
+          </div>
+
+          <a href="../index.html#featuredSliderSection" class="primary-btn">
+            <span>Launch AI Knowledge Engine</span> <span>&#10132;</span>
+          </a>
+        </div>
+
+        <!-- Large State Highlights & Cultural Lore Info Box -->
+        <div class="card state-highlights-box">
+          <div class="state-highlights-header">
+            <span class="state-box-icon">🌸</span>
+            <div>
+              <h3 class="box-subtitle">About Sikkim Heritage</h3>
+              <p class="box-subtext">Sacred Civilizations, Dynasties &amp; Traditions</p>
+            </div>
+          </div>
+          
+          <p class="state-heritage-intro">
+            Explore the architectural marvels, royal dynasties, ancient temples, and timeless cultural heritage preserved across Sikkim.
+          </p>
+
+          <div class="state-info-grid">
+            <div class="state-info-item">
+              <span class="info-item-label">&#128205; Capital City</span>
+              <strong class="info-item-value">Gangtok</strong>
+            </div>
+            <div class="state-info-item">
+              <span class="info-item-label">&#127759; Geographic Zone</span>
+              <strong class="info-item-value">Northeast India</strong>
+            </div>
+            <div class="state-info-item">
+              <span class="info-item-label">&#128222; Tourism Helpline</span>
+              <a href="tel:03592209090" class="info-item-link"><strong>03592-209090</strong></a>
+            </div>
+            <div class="state-info-item">
+              <span class="info-item-label">&#128680; Emergency Control</span>
+              <strong class="info-item-value" style="color: #ef4444;">112 / 108</strong>
+            </div>
+          </div>
+
+          <div class="state-portal-action">
+            <a href="https://sikkimtourism.gov.in" target="_blank" rel="noopener noreferrer" class="state-portal-btn">
+              <span>&#127760; Visit Official Tourism Portal</span>
+              <span>&#8599;</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- 5. Emergency & Tourist Helpline Footer -->
+  <footer class="state-portal-footer">
+    <!-- Tourist Helplines Group -->
+    <div class="footer-helpline-group">
+      <span class="footer-section-tag">&#127989; Tourist Helplines:</span>
+      <a href="tel:03592209090" class="helpline-pill tourist-pill" title="Call Sikkim Tourism Department Helpline">
+        <span>&#128222;</span> <strong>Sikkim Tourism:</strong> 03592-209090
+      </a>
+      <a href="tel:1363" class="helpline-pill tourist-pill" title="National 24x7 Multi-lingual Tourist Helpline (Ministry of Tourism)">
+        <span>&#127470;&#127475;</span> <strong>Incredible India (24x7):</strong> 1363 / 1800-11-1363
+      </a>
+    </div>
+
+    <!-- Emergency Response Group -->
+    <div class="footer-helpline-group">
+      <span class="footer-section-tag">&#128680; Emergency Response:</span>
+      <a href="tel:112" class="helpline-pill emergency-pill" title="National Emergency All-in-One Helpline">
+        <span>&#128680;</span> <strong>National Emergency:</strong> 112
+      </a>
+      <a href="tel:108" class="helpline-pill emergency-pill" title="Medical Ambulance Emergency">
+        <span>&#128657;</span> <strong>Ambulance:</strong> 108 / 102
+      </a>
+      <a href="tel:100" class="helpline-pill emergency-pill" title="Police Emergency Control">
+        <span>&#128110;</span> <strong>Police:</strong> 100
+      </a>
+      <a href="tel:1091" class="helpline-pill emergency-pill" title="Women Safety & Support Helpline">
+        <span>&#128105;</span> <strong>Women Safety:</strong> 1091
+      </a>
+    </div>
+
+    <!-- Right Copyright Info -->
+    <div class="footer-right-info">
+      <span>&copy; 2026 Indian Heritage &bull; Govt. of India Tourism Data</span>
+    </div>
+  </footer>
+
+    <!-- Fullscreen 360 Virtual Tour Modal -->
+  <div id="virtualTourModal" class="tour-fullscreen-modal">
+    <button id="btnCloseTourModal" class="tour-modal-close-btn" title="Close 360&deg; View (Esc)">&times;</button>
+    <div class="tour-modal-viewport">
+      <canvas id="tourModalCanvas"></canvas>
+      
+      <!-- Top Overlay -->
+      <div class="tour-top-overlay" style="top: 20px; left: 24px; right: 80px;">
+        <div class="tour-compass-badge">
+          <span class="tour-compass-needle" id="tourModalCompassNeedle">&#129517;</span>
+          <span id="tourModalCompassText">N 000&deg;</span>
+        </div>
+        <div style="background: rgba(15,23,42,0.85); backdrop-filter: blur(10px); padding: 0.35rem 0.9rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: #f8fafc; font-weight: 700; font-size: 0.85rem;" id="tourModalSiteTitle">
+          360&deg; Virtual Tour
+        </div>
+      </div>
+
+      <!-- Hotspots Layer -->
+      <div class="tour-hotspots-layer" id="tourModalHotspotsLayer"></div>
+
+      <!-- Bottom Controls -->
+      <div class="tour-bottom-controls" style="bottom: 24px; left: 24px; right: 24px;">
+        <div class="tour-controls-cluster">
+          <button id="btnTourModalAutoRotate" class="tour-ctrl-btn active" title="Toggle Auto-Rotation">&#128260;</button>
+          <button id="btnTourModalZoomIn" class="tour-ctrl-btn" title="Zoom In">&#10133;</button>
+          <button id="btnTourModalZoomOut" class="tour-ctrl-btn" title="Zoom Out">&#10134;</button>
+          <button id="btnTourModalReset" class="tour-ctrl-btn" title="Reset View">&#127919;</button>
+        </div>
+
+        <div id="tourModalScenesBar" class="tour-scenes-bar"></div>
+
+        <div class="tour-controls-cluster">
+          <a id="tourModalStreetViewLink" href="#" target="_blank" rel="noopener noreferrer" class="tour-ctrl-btn" title="Google Street View 360&deg;" style="text-decoration: none;">&#127760;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Fullscreen Lightbox Modal -->
+  <div id="stateLightboxModal" style="display: none; position: fixed; inset: 0; z-index: 2100; align-items: center; justify-content: center;">
+    <div id="lightboxBackdrop" style="position: absolute; inset: 0; background: rgba(2, 6, 23, 0.94); backdrop-filter: blur(14px);"></div>
+    <div style="position: relative; width: 96vw; height: 94vh; max-width: 96vw; max-height: 94vh; z-index: 2101; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box;">
+      <button id="btnCloseLightbox" style="position: absolute; top: 10px; right: 14px; background: rgba(15,23,42,0.85); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1.8rem; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; z-index: 2105;" title="Close Fullscreen View (Esc)">&times;</button>
+      <img id="lightboxFullImg" src="" alt="Monument Full View" style="max-width: 94vw; max-height: 84vh; width: auto; height: auto; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); object-fit: contain;">
+      <p id="lightboxCaption" style="color: #f8fafc; margin-top: 12px; font-weight: 600; font-size: 1rem; text-shadow: 0 2px 8px rgba(0,0,0,0.8); background: rgba(15,23,42,0.75); padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15);"></p>
+    </div>
+  </div>
+
+  <script src="../heritage-data.js"></script>
+  <script src="state-page.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      initStatePage("Sikkim");
+    });
+  </script>
+</body>
+</html>

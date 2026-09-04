@@ -1,0 +1,4 @@
+*.ps1
+*.txt
+scratch/
+.DS_Store
