@@ -3014,11 +3014,23 @@ body.state-portal-page {
 
 .carousel-top-tags {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: clamp(8px, 1.2vw, 12px);
+  left: clamp(8px, 1.2vw, 12px);
   display: flex;
+  align-items: center;
   gap: 6px;
-  z-index: 2;
+  z-index: 5;
+  flex-wrap: wrap;
+}
+
+.carousel-top-actions {
+  position: absolute;
+  top: clamp(8px, 1.2vw, 12px);
+  right: clamp(8px, 1.2vw, 12px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 5;
 }
 
 .badge-tag {
@@ -3036,38 +3048,57 @@ body.state-portal-page {
   background: rgba(192, 86, 33, 0.92);
 }
 
-.carousel-counter-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(15, 23, 42, 0.8);
+.carousel-tour-badge-btn {
+  background: rgba(192, 86, 33, 0.92);
   backdrop-filter: blur(8px);
   color: #fff;
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 0.76rem;
   font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.carousel-tour-badge-btn:hover {
+  background: #ea580c;
+  transform: scale(1.05);
+}
+
+.carousel-counter-badge {
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.74rem;
+  font-weight: 700;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  z-index: 2;
 }
 
 .carousel-lightbox-btn {
-  position: absolute;
-  top: 12px;
-  right: 5rem;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.82);
   backdrop-filter: blur(8px);
   color: #fff;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 2;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  transition: all 0.2s ease;
+}
+
+.carousel-lightbox-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
 }
 
 .carousel-nav-btn {
@@ -3358,6 +3389,14 @@ body.state-portal-page {
   border-radius: 10px;
   border: 1px solid var(--border);
   scrollbar-width: thin;
+}
+
+#tab-panel-tour.state-tab-panel,
+#tab-panel-tour.tab-pane {
+  max-height: none !important;
+  overflow: visible !important;
+  padding: clamp(8px, 1.2vw, 14px) !important;
+  background: var(--bg-card) !important;
 }
 
 .tab-pane::-webkit-scrollbar,
