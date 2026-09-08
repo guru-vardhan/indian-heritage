@@ -614,6 +614,7 @@ function initLightbox() {
     if (!modal || !lightboxImg || carouselImages.length === 0) return;
     const cur = carouselImages[carouselIndex];
     lightboxImg.src = cur.url;
+    lightboxImg.alt = cur.caption || "Heritage Site View";
     if (lightboxCaption) lightboxCaption.textContent = cur.caption || "Monument Full View";
     modal.style.display = "flex";
     document.body.classList.add("modal-open");

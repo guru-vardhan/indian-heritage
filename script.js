@@ -388,7 +388,7 @@ async function selectState(stateId, autoSelectSiteId = null) {
   if (spotlightPreview) {
     if (sites.length > 0) {
       spotlightPreview.innerHTML = sites.slice(0, 3).map(site => `
-        <a href="states/${slug}.html?site=${site.id}" style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-card); padding: 0.35rem 0.6rem; border-radius: 6px; border: 1px solid var(--border); font-size: 0.76rem; text-decoration: none; color: inherit; transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.borderColor='var(--primary-saffron)'; this.style.transform='translateX(2px)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='none'">
+        <a href="/states/${slug}.html?site=${site.id}" style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-card); padding: 0.35rem 0.6rem; border-radius: 6px; border: 1px solid var(--border); font-size: 0.76rem; text-decoration: none; color: inherit; transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.borderColor='var(--primary-saffron)'; this.style.transform='translateX(2px)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='none'">
           <div style="font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 0.35rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
             <span>${site.isUnesco ? '🏛️' : '📍'}</span>
             <span style="overflow: hidden; text-overflow: ellipsis;">${site.name}</span>
@@ -689,6 +689,7 @@ function openLightboxModal() {
   if (!imgObj) return;
 
   dom.lightboxImg.src = imgObj.url;
+  dom.lightboxImg.alt = imgObj.caption || "Heritage Site View";
   dom.lightboxCaption.textContent = imgObj.caption || appState.currentSiteObj?.name || "Heritage Monument";
   dom.mediaLightboxModal.style.display = "flex";
   document.body.classList.add("modal-open");
@@ -1953,7 +1954,7 @@ function initStatesDirectory() {
         : `<span class="state-dir-badge">📍 Regional Portal</span>`;
 
       return `
-        <a href="states/${slug}.html" class="state-dir-card">
+        <a href="/states/${slug}.html" class="state-dir-card">
           <div>
             <div class="state-dir-header">
               <div class="state-dir-icon">${state.icon}</div>
@@ -2023,7 +2024,7 @@ function initFeaturedSlider() {
     const categoryName = site.category || (site.isUnesco ? "UNESCO World Heritage" : "Sacred Monument");
 
     return `
-      <a href="states/${slug}.html?site=${encodeURIComponent(site.id)}" class="slider-card" data-site="${site.id}" title="Explore ${site.name} in ${stateName}">
+      <a href="/states/${slug}.html?site=${encodeURIComponent(site.id)}" class="slider-card" data-site="${site.id}" title="Explore ${site.name} in ${stateName}">
         <div class="slider-card-media">
           <img src="${site.imageUrl || ''}" alt="${site.name}" class="slider-card-img" loading="lazy" onerror="handleImageError(this)">
           ${site.isUnesco ? '<span class="slider-card-badge-top-left">🏛️ UNESCO</span>' : '<span class="slider-card-badge-top-left">📍 Heritage</span>'}
@@ -2121,7 +2122,7 @@ function initFeaturedSlider() {
 window.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
     e.preventDefault();
-    const searchInput = document.querySelector('input[type="search"]') || document.querySelector('#siteSearch');
+    const searchInput = document.querySelector('input[type="search"]') || document.querySelector('#liveSearchInput') || document.querySelector('#siteSearch');
     if (searchInput) searchInput.focus();
   }
 });
