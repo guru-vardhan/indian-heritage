@@ -545,11 +545,12 @@ function playAudio() {
   const site = stateSites[activeSiteIndex];
   if (!site) return;
 
-  const textToRead = `${site.name}, located in ${site.district || site.stateName}. ${site.description} Architectural style: ${site.architecturalStyle}. Historical period: ${site.builtIn}. ${site.culturalSignificance}`;
+  const textToRead = `${site.name}, located in ${site.district || site.stateName}. ${site.description} Architectural style: ${site.architecturalStyle || "Indian Architecture"}. Historical period: ${site.builtIn || "Ancient"}. ${site.culturalSignificance || ""}`;
 
   speechSynth.cancel();
   currentUtterance = new SpeechSynthesisUtterance(textToRead);
-  currentUtterance.rate = speechRate;
+  currentUtterance.lang = 'en-IN';
+  currentUtterance.rate = 0.95;
 
   currentUtterance.onstart = () => {
     isAudioPlaying = true;
@@ -559,11 +560,15 @@ function playAudio() {
   currentUtterance.onend = () => {
     isAudioPlaying = false;
     updateAudioUI();
+    const statusEl = document.getElementById("audio-status-text");
+    if (statusEl) statusEl.textContent = "Ready to narrate";
   };
 
   currentUtterance.onerror = () => {
     isAudioPlaying = false;
     updateAudioUI();
+    const statusEl = document.getElementById("audio-status-text");
+    if (statusEl) statusEl.textContent = "Narration unavailable";
   };
 
   speechSynth.speak(currentUtterance);

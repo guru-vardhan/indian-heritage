@@ -2116,3 +2116,12 @@ function initFeaturedSlider() {
     }, { passive: true });
   }
 }
+
+// Search Keyboard Shortcut (Ctrl+K)
+window.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    const searchInput = document.querySelector('input[type="search"]') || document.querySelector('#siteSearch');
+    if (searchInput) searchInput.focus();
+  }
+});
