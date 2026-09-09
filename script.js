@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Indian Heritage & Culture - Interactive Portal Controller
  * Features:
  * 1. SVG Map of India (36 States & UTs) & Dynamic Selectors
@@ -371,7 +371,7 @@ async function selectState(stateId, autoSelectSiteId = null) {
   const spotlightBtn = document.getElementById("spotlight-state-portal-btn");
   const spotlightBtnLabel = document.getElementById("spotlight-btn-label");
 
-  if (spotlightIcon && matchedState) spotlightIcon.textContent = matchedState.icon || "🏛️";
+  if (spotlightIcon && matchedState) spotlightIcon.textContent = matchedState.icon || "&#127963;";
   if (spotlightName) spotlightName.textContent = stateName;
   if (spotlightCapital) spotlightCapital.textContent = `Capital: ${matchedState ? matchedState.capital : 'State Capital'}`;
   if (spotlightRegion) spotlightRegion.textContent = matchedState ? matchedState.region : 'India';
@@ -1666,7 +1666,7 @@ function initDropdownListeners() {
     STATES_DATA.forEach(st => {
       const opt = document.createElement("option");
       opt.value = st.id;
-      opt.textContent = `${st.icon} ${st.name} (${st.region})`;
+      opt.innerHTML = `${st.icon} ${st.name} (${st.region})`;
       if (st.id === "AndhraPradesh") opt.selected = true;
       dom.stateSelect.appendChild(opt);
     });
@@ -1686,7 +1686,7 @@ function initDropdownListeners() {
     STATES_DATA.forEach(st => {
       const opt = document.createElement("option");
       opt.value = st.id;
-      opt.textContent = `${st.icon} ${st.name} (${st.region})`;
+      opt.innerHTML = `${st.icon} ${st.name} (${st.region})`;
       if (st.id === "AndhraPradesh") opt.selected = true;
       dashboardStatePicker.appendChild(opt);
     });

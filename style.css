@@ -1,4 +1,4 @@
-/* Indian Heritage & Culture - Modern Cultural Tourism Stylesheet */
+﻿/* Indian Heritage & Culture - Modern Cultural Tourism Stylesheet */
 
 :root {
   /* Warm Heritage Standardized Palette */
@@ -263,7 +263,7 @@ header {
 /* Main Layout Grid - In-Screen High-Width Map & Sticky Sidebar Dashboard */
 main {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(310px, 380px);
+  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 440px);
   gap: clamp(1rem, 1.8vw, 1.65rem);
   padding: clamp(1rem, 2vw, 1.5rem) 0 3rem;
   align-items: start;
@@ -274,7 +274,7 @@ main {
 
 @media (max-width: 1180px) {
   main {
-    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 340px);
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 390px);
     gap: 1rem;
   }
 }
