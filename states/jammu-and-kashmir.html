@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -59,7 +59,7 @@
     
     <div style="display: flex; align-items: center; gap: 0.6rem;">
       <a href="/index.html" class="secondary-btn" style="text-decoration: none; padding: 0.35rem 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 5px;">&#128506;&#65039; Interactive Map</a>
-      <a href="javascript:void(0)" onclick="alert('AI Historian Chat coming soon!')" class="secondary-btn" style="text-decoration: none; padding: 0.35rem 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 5px;">âœ¨ Featured Sites</a>
+      <a href="javascript:void(0)" onclick="if(window.openAIChat) window.openAIChat(this.innerText || ''); else alert('Chat loading...')" class="secondary-btn" style="text-decoration: none; padding: 0.35rem 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 5px;">âœ¨ Featured Sites</a>
       <button id="theme-toggle-btn" class="icon-btn" title="Toggle Theme" style="padding: 0.35rem 0.55rem; border-radius: 6px; cursor: pointer; border: 1px solid var(--border); background: var(--bg-card); font-size: 0.82rem;">&#127763;</button>
     </div>
   </header>
@@ -307,18 +307,18 @@
           <p>Explore verified historical archives, mythologies, and cultural traditions about Jammu and Kashmir.</p>
           
           <div class="ai-prompts-row">
-            <a href="javascript:void(0)" onclick="alert('AI Historian Chat coming soon!')" class="ai-prompt-chip">
+            <a href="javascript:void(0)" onclick="if(window.openAIChat) window.openAIChat(this.innerText || ''); else alert('Chat loading...')" class="ai-prompt-chip">
               <span>&#10024; Architecture of Jammu and Kashmir monuments</span> <span>&#10132;</span>
             </a>
-            <a href="javascript:void(0)" onclick="alert('AI Historian Chat coming soon!')" class="ai-prompt-chip">
+            <a href="javascript:void(0)" onclick="if(window.openAIChat) window.openAIChat(this.innerText || ''); else alert('Chat loading...')" class="ai-prompt-chip">
               <span>&#10024; Cultural rituals &amp; sacred legends</span> <span>&#10132;</span>
             </a>
-            <a href="javascript:void(0)" onclick="alert('AI Historian Chat coming soon!')" class="ai-prompt-chip">
+            <a href="javascript:void(0)" onclick="if(window.openAIChat) window.openAIChat(this.innerText || ''); else alert('Chat loading...')" class="ai-prompt-chip">
               <span>&#10024; Dynasty timeline &amp; royal patrons</span> <span>&#10132;</span>
             </a>
           </div>
 
-          <a href="javascript:void(0)" onclick="alert('AI Historian Chat coming soon!')" class="primary-btn">
+          <a href="javascript:void(0)" onclick="if(window.openAIChat) window.openAIChat(this.innerText || ''); else alert('Chat loading...')" class="primary-btn">
             <span>Launch AI Knowledge Engine</span> <span>&#10132;</span>
           </a>
         </div>
@@ -461,5 +461,33 @@
       initStatePage("JammuAndKashmir");
     });
   </script>
+  <!-- AI Historian Chatbot Widget -->
+  <div id="ai-chat-widget">
+    <div id="ai-chat-window" class="chat-window-hidden">
+      <div class="chat-header">
+        <div class="chat-title">
+          <span class="chat-bot-icon">&#129302;</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1rem; color: #fff;">AI Historian</h3>
+            <span class="chat-status" style="font-size: 0.7rem; color: #e2e8f0;">&#128994; Online &bull; Powered by BharatKathaAI</span>
+          </div>
+        </div>
+        <button id="close-chat-btn" class="btn-icon" title="Close Chat" style="color: #fff;">&#10005;</button>
+      </div>
+      <div id="chat-messages" class="chat-messages">
+        <div class="chat-message bot-message">
+          <div class="message-content">Namaste! &#128591; I am your AI Historian. Ask me anything about Indian culture, heritage, arts, or philosophy!</div>
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="chat-input" placeholder="Ask about Indian heritage..." rows="1"></textarea>
+        <button id="send-chat-btn" title="Send Message">&#10148;</button>
+      </div>
+    </div>
+    <button id="open-chat-btn" class="chat-fab-btn" title="Ask AI Historian">
+      <span class="fab-icon">&#129302;</span>
+    </button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 </html>

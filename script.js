@@ -2126,3 +2126,182 @@ window.addEventListener('keydown', (e) => {
     if (searchInput) searchInput.focus();
   }
 });
+
+// =========================================================
+// AI HISTORIAN CHATBOT LOGIC
+// =========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const chatWidget = document.getElementById("ai-chat-widget");
+  const chatWindow = document.getElementById("ai-chat-window");
+  const openChatBtn = document.getElementById("open-chat-btn");
+  const closeChatBtn = document.getElementById("close-chat-btn");
+  const chatMessages = document.getElementById("chat-messages");
+  const chatInput = document.getElementById("chat-input");
+  const sendChatBtn = document.getElementById("send-chat-btn");
+
+  if (!chatWidget) return;
+
+  // Load chat history from sessionStorage
+  let messages = JSON.parse(sessionStorage.getItem("bharatKathaMessages")) || [];
+
+  function saveMessages() {
+    sessionStorage.setItem("bharatKathaMessages", JSON.stringify(messages));
+  }
+
+  function renderMessages() {
+    // Clear all except the first welcome message
+    while (chatMessages.children.length > 1) {
+      chatMessages.removeChild(chatMessages.lastChild);
+    }
+    
+    messages.forEach(msg => {
+      appendMessage(msg.role, msg.content, false);
+    });
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function appendMessage(role, content, save = true) {
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `chat-message ${role === "user" ? "user-message" : "bot-message"}`;
+    
+    const contentDiv = document.createElement("div");
+    contentDiv.className = "message-content";
+    
+    if (role === "assistant" && window.marked) {
+      contentDiv.innerHTML = marked.parse(content);
+    } else {
+      contentDiv.textContent = content;
+    }
+    
+    msgDiv.appendChild(contentDiv);
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    if (save) {
+      messages.push({ role, content });
+      saveMessages();
+    }
+    return contentDiv;
+  }
+
+  window.openAIChat = function(initialQuery = "") {
+    chatWindow.classList.remove("chat-window-hidden");
+    chatWindow.classList.add("chat-window-visible");
+    openChatBtn.style.transform = "scale(0)";
+    
+    if (initialQuery && typeof initialQuery === "string") {
+      chatInput.value = initialQuery;
+      sendMessage();
+    } else {
+      chatInput.focus();
+    }
+  };
+
+  closeChatBtn.addEventListener("click", () => {
+    chatWindow.classList.add("chat-window-hidden");
+    chatWindow.classList.remove("chat-window-visible");
+    openChatBtn.style.transform = "scale(1)";
+  });
+
+  openChatBtn.addEventListener("click", () => window.openAIChat());
+
+  async function sendMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    appendMessage("user", text);
+    chatInput.value = "";
+    chatInput.style.height = "auto";
+    sendChatBtn.disabled = true;
+
+    // Add typing indicator
+    const typingDiv = document.createElement("div");
+    typingDiv.className = "chat-message bot-message";
+    typingDiv.innerHTML = `<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      // Create request payload
+      const payload = {
+        messages: messages.map(m => ({ role: m.role, content: m.content }))
+      };
+
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      // Remove typing indicator
+      chatMessages.removeChild(typingDiv);
+
+      if (!response.ok) {
+        const errText = await response.text();
+        appendMessage("assistant", "Sorry, I encountered an error. Please try again. \n\n`" + errText + "`");
+        sendChatBtn.disabled = false;
+        return;
+      }
+
+      // Read SSE Stream
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let done = false;
+      let assistantContent = "";
+      
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "chat-message bot-message";
+      const contentDiv = document.createElement("div");
+      contentDiv.className = "message-content";
+      msgDiv.appendChild(contentDiv);
+      chatMessages.appendChild(msgDiv);
+
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        if (value) {
+          const chunk = decoder.decode(value, { stream: true });
+          assistantContent += chunk;
+          if (window.marked) {
+            contentDiv.innerHTML = marked.parse(assistantContent);
+          } else {
+            contentDiv.textContent = assistantContent;
+          }
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+      }
+
+      messages.push({ role: "assistant", content: assistantContent });
+      saveMessages();
+
+    } catch (error) {
+      chatMessages.removeChild(typingDiv);
+      appendMessage("assistant", "Network error. Please try again later.");
+      console.error("Chat API Error:", error);
+    } finally {
+      sendChatBtn.disabled = false;
+      chatInput.focus();
+    }
+  }
+
+  sendChatBtn.addEventListener("click", sendMessage);
+
+  chatInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  chatInput.addEventListener("input", function() {
+    this.style.height = "auto";
+    this.style.height = (this.scrollHeight) + "px";
+  });
+
+  // Render previous messages on load
+  if (messages.length > 0) {
+    renderMessages();
+  }
+});
+
